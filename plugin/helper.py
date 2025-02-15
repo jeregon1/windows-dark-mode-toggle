@@ -1,4 +1,5 @@
 import winreg as reg
+import ctypes
 
 ON = 1
 OFF = 0
@@ -59,3 +60,8 @@ class WinTheme(object):
             self.set_dark_mode()
         else:
             self.set_light_mode()
+            
+        HWND_BROADCAST = 0xFFFF
+        WM_SETTINGCHANGE = 0x1A
+        ctypes.windll.user32.SendMessageW(HWND_BROADCAST, WM_SETTINGCHANGE, 0, "ImmersiveColorSet")
+
